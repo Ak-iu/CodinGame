@@ -75,6 +75,16 @@ def r_dead_zombies():
         if z_key in zombies:
             del zombies[z_key]
 
+def near_zombie():
+    nearest_zombie = False
+    min_dist = float("inf")
+    for z_key in zombies:
+        z=zombies[z_key]
+        if dist(z,ash) < 2250 and dist(z,ash) < min_dist:
+            min_dist = dist(z,ash)
+            nearest_zombie = z_key
+
+    return nearest_zombie
 # Write an action using print
 # To debug: print("Debug messages...", file=sys.stderr, flush=True)
 
@@ -110,14 +120,20 @@ while True:
     z_keys = list(zombies.keys())
     
     
-   
-    for key in humans_focus:
-        h = humans[key]
-        if can_save(h) and key in humans:
-            print("I protect : ",key, file=sys.stderr, flush=True)
-            x = h[0]
-            y = h[1]
-            break
+    z_key = near_zombie()
+    if z_key != False:
+        z=zombies[z_key]
+        print("I kill : ",z_key, file=sys.stderr, flush=True)
+        x = z[0]
+        y = z[1]
+    else:
+        for key in humans_focus:
+            h = humans[key]
+            if can_save(h) and key in humans:
+                print("I protect : ",key, file=sys.stderr, flush=True)
+                x = h[0]
+                y = h[1]
+                break
 
    
     print(x,y)
