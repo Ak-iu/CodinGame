@@ -1,2 +1,2 @@
-# CodinGame_IA_Tic-Tac-Toe
+# CodinGame
 IA for Tic-Tac-Toe
